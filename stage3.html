@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stage 3 // Cipher</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="scanline"></div>
+<div class="page">
+
+  <div class="glyph-row">░ ▒ ▓ █ ▓ ▒ ░ ▒ ▓ █ ▓ ▒ ░</div>
+
+  <div class="stage-badge">STAGE 3 // CIPHER</div>
+  <h1>The Cipher</h1>
+
+  <div class="card glow">
+    <p style="color:var(--muted); font-size:13px;">
+      HERE IS A NEW TASK
+    </p>
+    <hr class="divider">
+
+    <div class="cipher-text" id="cipherText">
+      Wkh wkuhh wklqjv wkdw L dp vxuh ri duh...
+    </div>
+
+    <div class="input-group">
+      <label>ENTER THE ANSWER</label>
+      <input type="text" id="cipherInput" placeholder="..." autocomplete="off">
+    </div>
+    <button class="btn-full" onclick="checkCipher()">DECODE →</button>
+    <div id="cipherMsg" class="msg"></div>
+  </div>
+
+</div>
+
+<script>
+function checkCipher() {
+  const val = document.getElementById('cipherInput').value.trim().toLowerCase();
+  const msg = document.getElementById('cipherMsg');
+  const accepted = ['you, you, and you', 'you you and you', 'you,you,and you'];
+  if (accepted.some(a => val.includes(a))) {
+    msg.className = 'msg success';
+    msg.textContent = 'Correct.';
+    setTimeout(() => { window.location.href = 'stage4.html'; }, 1600);
+  } else {
+    msg.className = 'msg error';
+    msg.textContent = 'Incorrect.';
+  }
+}
+document.getElementById('cipherInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') checkCipher();
+});
+</script>
+</body>
+</html>

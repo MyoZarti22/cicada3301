@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Share+Tech+Mono&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a0a0f;
+  --surface: #111118;
+  --card: #16161f;
+  --border: #2a2a3a;
+  --accent: #c8a96e;
+  --accent-dim: #8a7048;
+  --text: #d4cfc4;
+  --muted: #6b6a70;
+  --red: #c85555;
+  --green: #5a9e6e;
+  --glow: rgba(200, 169, 110, 0.15);
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 15px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+.page {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Typography ── */
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  color: var(--accent-dim);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-family: 'Special Elite', serif;
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  color: var(--accent);
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+h2 {
+  font-family: 'Special Elite', serif;
+  font-size: 1.3rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+p { color: var(--text); margin-bottom: 1rem; }
+p:last-child { margin-bottom: 0; }
+
+/* ── Cards ── */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2rem;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.card.glow {
+  box-shadow: 0 0 30px var(--glow), inset 0 0 30px rgba(200,169,110,0.03);
+}
+
+/* ── Divider ── */
+.divider {
+  width: 100%;
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 1.5rem 0;
+}
+
+/* ── Input / Button ── */
+.input-group { width: 100%; margin-bottom: 1rem; }
+.input-group label { display: block; font-size: 12px; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 6px; }
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  background: #0d0d14;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--accent);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 15px;
+  padding: 10px 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+input[type="text"]:focus,
+input[type="password"]:focus { border-color: var(--accent-dim); }
+
+button, .btn {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid var(--accent-dim);
+  border-radius: 3px;
+  color: var(--accent);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  padding: 10px 28px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+button:hover, .btn:hover { background: var(--glow); border-color: var(--accent); }
+
+.btn-full { width: 100%; text-align: center; }
+
+/* ── Feedback messages ── */
+.msg { font-size: 13px; padding: 10px 14px; border-radius: 3px; margin-top: 12px; display: none; }
+.msg.error { background: rgba(200,85,85,0.1); border: 1px solid var(--red); color: var(--red); display: block; }
+.msg.success { background: rgba(90,158,110,0.1); border: 1px solid var(--green); color: var(--green); display: block; }
+
+/* ── Glitch / ambient ── */
+.glyph-row {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--border);
+  text-align: center;
+  margin-bottom: 2rem;
+  user-select: none;
+}
+
+/* ── Stage badge ── */
+.stage-badge {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 3px 10px;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+
+/* ── Cipher display ── */
+.cipher-text {
+  font-family: 'Special Elite', serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  text-align: center;
+  background: #0d0d14;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  word-break: break-all;
+}
+
+/* ── Code / hint ── */
+.hint-box {
+  background: #0d0d14;
+  border-left: 2px solid var(--accent-dim);
+  padding: 12px 16px;
+  font-size: 13px;
+  color: var(--muted);
+  border-radius: 0 3px 3px 0;
+  margin-bottom: 1.5rem;
+}
+
+/* ── URL dead drop ── */
+.url-display {
+  font-size: 13px;
+  color: var(--muted);
+  background: #0d0d14;
+  border: 1px solid var(--border);
+  padding: 10px 14px;
+  border-radius: 3px;
+  margin-bottom: 1rem;
+  word-break: break-all;
+}
+.url-display span { color: var(--accent); }
+
+/* ── Audio ── */
+audio { width: 100%; margin-bottom: 1rem; filter: invert(0.8) sepia(0.5) hue-rotate(170deg); }
+
+/* ── Scanline animation ── */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+.scanline {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(transparent, rgba(200,169,110,0.06), transparent);
+  pointer-events: none;
+  animation: scanline 8s linear infinite;
+  z-index: 999;
+}
+
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+.cursor { display: inline-block; animation: blink 1s step-end infinite; }
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .page { padding: 2rem 1rem; }
+  .card { padding: 1.25rem; }
+}

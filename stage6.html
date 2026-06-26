@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stage 6 // The Signal</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Floating signal dots */
+  .signal-field {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .dot {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0;
+    animation: ping var(--dur) ease-out infinite var(--delay);
+  }
+  @keyframes ping {
+    0% { transform: scale(0); opacity: 0.5; }
+    100% { transform: scale(4); opacity: 0; }
+  }
+  .page { position: relative; z-index: 1; }
+
+  /* Telegram link */
+  .tg-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #0d0d14;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 14px 16px;
+    margin-bottom: 1.5rem;
+    text-decoration: none;
+    transition: border-color 0.2s;
+    cursor: pointer;
+  }
+  .tg-link:hover { border-color: var(--accent-dim); }
+  .tg-icon {
+    width: 36px; height: 36px;
+    border: 1px solid var(--accent-dim);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    color: var(--accent);
+  }
+  .tg-text { flex: 1; }
+  .tg-title { font-size: 13px; color: var(--accent); display: block; margin-bottom: 2px; }
+  .tg-sub { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; }
+  .tg-arrow { color: var(--muted); font-size: 12px; }
+</style>
+</head>
+<body>
+
+<div class="signal-field" id="signalField"></div>
+<div class="scanline"></div>
+<div class="page">
+
+  <div class="glyph-row">· · · ◈ · · · · · ◈ · · ·</div>
+
+  <div class="stage-badge">STAGE 6 // COORDINATE</div>
+  <h1>The Signal<br>Has Arrived</h1>
+
+  <div class="card glow">
+    <p style="color:var(--muted); font-size:13px; margin-bottom:1.5rem;">
+      A transmission has been sent to you.<br>
+      Open the channel below to receive it.<br>
+      The coordinates will tell you everything.
+    </p>
+
+    <!-- Telegram Bot Link -->
+    <a class="tg-link" href="https://web.telegram.org/k/#@ourpuzzelbot" target="_blank">
+      <div class="tg-icon">✈</div>
+      <div class="tg-text">
+        <span class="tg-title">Open Telegram Bot</span>
+        <span class="tg-sub">@ourpuzzelbot · tap START to receive signal</span>
+      </div>
+      <span class="tg-arrow">→</span>
+    </a>
+
+    <hr class="divider">
+
+    <div class="input-group">
+      <label>ENTER THE WORD</label>
+      <input type="text" id="wordInput" placeholder="one word..." autocomplete="off" autofocus>
+    </div>
+    <button class="btn-full" onclick="checkWord()">TRANSMIT →</button>
+    <div id="wordMsg" class="msg"></div>
+  </div>
+
+</div>
+
+<script>
+// Signal ping dots
+const field = document.getElementById('signalField');
+for (let i = 0; i < 12; i++) {
+  const d = document.createElement('div');
+  d.className = 'dot';
+  const size = 4 + Math.random() * 6;
+  d.style.cssText = `
+    left: ${10 + Math.random()*80}%;
+    top: ${10 + Math.random()*80}%;
+    width: ${size}px; height: ${size}px;
+    --dur: ${3 + Math.random()*5}s;
+    --delay: ${Math.random()*6}s;
+  `;
+  field.appendChild(d);
+}
+
+function checkWord() {
+  const val = document.getElementById('wordInput').value.trim().toLowerCase();
+  const msg = document.getElementById('wordMsg');
+  if (val === 'lobster') {
+    msg.className = 'msg success';
+    msg.textContent = 'Signal confirmed. She is his lobster. And you are mine.';
+    setTimeout(() => { window.location.href = 'stage7.html'; }, 2400);
+  } else {
+    msg.className = 'msg error';
+    msg.textContent = 'Wrong frequency. Go back to the episode. Count carefully.';
+  }
+}
+document.getElementById('wordInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') checkWord();
+});
+</script>
+</body>
+</html>

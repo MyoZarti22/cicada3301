@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stage 4</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .q-block {
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .q-block:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  .q-text {
+    font-size: 13px;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+  }
+  .q-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .q-row input[type="text"] {
+    flex: 1;
+  }
+  .q-status {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    color: var(--muted);
+  }
+  .q-status.correct { color: var(--green); border-color: var(--green); }
+  .q-status.wrong { color: var(--red); border-color: var(--red); }
+
+  .final-block { display: none; text-align: center; margin-top: 1rem; }
+</style>
+</head>
+<body>
+<div class="scanline"></div>
+<div class="page">
+
+  <div class="stage-badge">STAGE 4</div>
+  <h1>The Path Forward</h1>
+
+  <div class="card glow">
+
+    <div id="quizBlock"></div>
+
+    <div class="final-block" id="finalBlock">
+      <p style="color:var(--accent); font-family:'Special Elite',serif; font-size:1.1rem;">·</p>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+const questions = [
+  { q: "What nationality does Joey proudly say his family is?", a: ["italian"] },
+  { q: "Ross insists the alphabet song is wrong — \"L is for ___.\"", a: ["life"] },
+  { q: "Monica needs everything to be in perfect ___.", a: ["order"] },
+  { q: "Ross's profession studies ancient animals with backbones — he's a specialist in ___.", a: ["vertebrates", "vertebrate"] },
+  { q: "Chandler covers his ___ with jokes.", a: ["embarrassment"] },
+  { q: "To avoid Janice, Chandler claims he's moving to ___.", a: ["yemen"] },
+  { q: "Monica's competitiveness sometimes becomes an ___.", a: ["obsession"] },
+  { q: "What is the name of Phoebe's twin sister?", a: ["ursula"] }
+];
+
+const quizBlock = document.getElementById('quizBlock');
+const solved = new Array(questions.length).fill(false);
+
+questions.forEach((item, i) => {
+  const block = document.createElement('div');
+  block.className = 'q-block';
+  block.innerHTML = `
+    <div class="q-text">${item.q}</div>
+    <div class="q-row">
+      <input type="text" id="ans${i}" autocomplete="off">
+      <div class="q-status" id="status${i}">—</div>
+    </div>
+  `;
+  quizBlock.appendChild(block);
+});
+
+function checkOne(i) {
+  const input = document.getElementById('ans' + i);
+  const status = document.getElementById('status' + i);
+  const val = input.value.trim().toLowerCase();
+  if (val === '') return;
+
+  const correct = questions[i].a.some(a => val === a);
+
+  if (correct) {
+    status.textContent = '✓';
+    status.className = 'q-status correct';
+    input.disabled = true;
+    solved[i] = true;
+    checkAllSolved();
+  } else {
+    status.textContent = '✗';
+    status.className = 'q-status wrong';
+  }
+}
+
+function checkAllSolved() {
+  if (solved.every(Boolean)) {
+    setTimeout(() => {
+      document.getElementById('finalBlock').style.display = 'block';
+    }, 600);
+  }
+}
+
+questions.forEach((item, i) => {
+  document.getElementById('ans' + i).addEventListener('keydown', e => {
+    if (e.key === 'Enter') checkOne(i);
+  });
+  document.getElementById('ans' + i).addEventListener('blur', () => checkOne(i));
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3301</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="scanline"></div>
+<div class="page">
+
+  <div class="glyph-row">
+    ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ ᛁ ᛃ ᛇ ᛈ ᛉ ᛊ
+  </div>
+
+  <div class="stage-badge">TRANSMISSION // VERIFIED</div>
+
+  <h1>Congratulations.<br>You found my website.</h1>
+
+  <div class="card glow">
+    <p style="text-align:center; color: var(--muted); font-size:13px; margin-bottom:1.5rem;">
+      The signature checked out.<br>
+      You are who I hoped you would be.
+    </p>
+    <hr class="divider">
+    <p>
+      This is a trail built for one person.<br>
+      Each step asks something only she would know.
+    </p>
+    <p>
+      The next door requires a password.<br>
+      Think carefully. The answer has always been close.
+    </p>
+    <hr class="divider">
+
+    <div class="input-group">
+      <label>WHAT IS OUR FAVORITE SHOW?</label>
+      <input type="text" id="showInput" placeholder="type your answer..." autocomplete="off" autofocus>
+    </div>
+    <button class="btn-full" onclick="checkShow()">SUBMIT →</button>
+    <div id="showMsg" class="msg"></div>
+  </div>
+
+  <div class="glyph-row" style="margin-top:2rem; margin-bottom:0;">
+    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+  </div>
+
+</div>
+
+<script>
+function checkShow() {
+  const val = document.getElementById('showInput').value.trim().toLowerCase();
+  const msg = document.getElementById('showMsg');
+  const accepted = ['friends', 'f.r.i.e.n.d.s', 'f r i e n d s', 'friend'];
+  if (accepted.some(a => val.includes(a))) {
+    msg.className = 'msg success';
+    msg.textContent = 'Access granted. Proceeding to next transmission...';
+    setTimeout(() => { window.location.href = 'stage3.html'; }, 1800);
+  } else {
+    msg.className = 'msg error';
+    msg.textContent = 'Incorrect. The answer is closer than you think.';
+  }
+}
+document.getElementById('showInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') checkShow();
+});
+</script>
+</body>
+</html>

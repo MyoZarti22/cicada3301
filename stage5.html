@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stage 5 // The Stars</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .stars {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .star {
+    position: absolute;
+    width: 2px; height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0;
+    animation: twinkle var(--dur) ease-in-out infinite var(--delay);
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; }
+    50% { opacity: var(--bright); }
+  }
+  .page { position: relative; z-index: 1; }
+
+  .audio-wrapper {
+    background: #0d0d14;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  .audio-note {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 8px;
+    letter-spacing: 0.05em;
+  }
+  .play-btn {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    border: 1px solid var(--accent-dim);
+    background: transparent;
+    color: var(--accent);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 0.5rem;
+    transition: background 0.2s;
+  }
+  .play-btn:hover { background: var(--glow); }
+</style>
+</head>
+<body>
+
+<!-- Star field -->
+<div class="stars" id="stars"></div>
+
+<div class="scanline"></div>
+<div class="page">
+
+  <div class="stage-badge">STAGE 5 // AUDIO</div>
+  <h1>The Stars Know<br>the Answer</h1>
+
+  <div class="card glow">
+    <p style="color:var(--muted); font-size:13px; margin-bottom:1.5rem;">
+      Below is a message. But something is wrong with it.<br>
+      Listen carefully. Then listen again — differently.
+    </p>
+
+    <div class="audio-wrapper">
+      <button class="play-btn" onclick="togglePlay()" id="playBtn">▶</button>
+      <!-- 
+        INSTRUCTIONS FOR YOU:
+        1. Record yourself saying "The Giant Squid Nebula" in a calm voice
+        2. Reverse the audio using Audacity (free app) → Effect → Reverse
+        3. Export as MP3, name it "clue.mp3", put it in this same folder
+        4. The line below will play it automatically
+      -->
+      <audio id="clueAudio" src="clue.mp3" preload="auto"></audio>
+      <div class="audio-note">audio transmission // play to receive</div>
+    </div>
+
+    <div class="hint-box">
+      One of the important dates in our relationship is hidden in the audio. Listen carefully and think about it.
+    </div>
+
+    <hr class="divider">
+
+    <div class="input-group">
+      <label>WHAT DID THE STARS SAY?</label>
+      <input type="text" id="audioInput" placeholder="the answer" autocomplete="off">
+    </div>
+    <button class="btn-full" onclick="checkAudio()">SUBMIT →</button>
+    <div id="audioMsg" class="msg"></div>
+  </div>
+
+</div>
+
+<script>
+// Star field
+const starsEl = document.getElementById('stars');
+for (let i = 0; i < 120; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  s.style.cssText = `
+    left: ${Math.random()*100}%;
+    top: ${Math.random()*100}%;
+    --dur: ${2 + Math.random()*4}s;
+    --delay: ${Math.random()*5}s;
+    --bright: ${0.2 + Math.random()*0.7};
+    width: ${Math.random() > 0.8 ? 2 : 1}px;
+    height: ${Math.random() > 0.8 ? 2 : 1}px;
+  `;
+  starsEl.appendChild(s);
+}
+
+// Audio toggle
+const audio = document.getElementById('clueAudio');
+const playBtn = document.getElementById('playBtn');
+let playing = false;
+function togglePlay() {
+  if (!playing) {
+    audio.play().catch(() => {});
+    playBtn.textContent = '⏸';
+    playing = true;
+  } else {
+    audio.pause();
+    playBtn.textContent = '▶';
+    playing = false;
+  }
+}
+audio.onended = () => { playBtn.textContent = '▶'; playing = false; };
+
+function checkAudio() {
+  const val = document.getElementById('audioInput').value.trim().toLowerCase();
+  const msg = document.getElementById('audioMsg');
+  if (val.includes('giant squid') || val.includes('squid nebula') || val === 'the giant squid nebula') {
+    msg.className = 'msg success';
+    msg.textContent = 'Yes. You remembered. Now follow the next signal.';
+    setTimeout(() => { window.location.href = 'stage6.html'; }, 2200);
+  } else {
+    msg.className = 'msg error';
+    msg.textContent = 'Not quite. Reverse what you hear. Think about our first date.';
+  }
+}
+document.getElementById('audioInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') checkAudio();
+});
+</script>
+</body>
+</html>
