@@ -6,10 +6,13 @@ const BOT_TOKEN = process.env.BOT_TOKEN;
 const TELEGRAM_API = `https://api.telegram.org/bot${BOT_TOKEN}`;
 
 const TRANSMISSION = [
-  "Hello.",
+   "Hello.",
+  "",
   "We have been watching.",
   "You have been chosen.",
+  "",
   "Seven fragments remain, scattered across a story you already know.",
+  "",
   "01.01.01",
   "02.01.01",
   "03.01.01",
@@ -17,8 +20,11 @@ const TRANSMISSION = [
   "05.01.01",
   "06.01.01",
   "07.01.01",
+  "",
   "Find out what it's about.",
+  "",
   "When the fragments are recovered, a single word will remain.",
+  "",
   "What single word connects all recovered clues?",
 ].join("\n");
 
