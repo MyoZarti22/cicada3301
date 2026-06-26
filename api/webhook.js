@@ -3,7 +3,7 @@
 // every time someone sends your bot a message. No polling, no always-on process.
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
-const TELEGRAM_API = `https://api.telegram.org/bot${8759870497:AAE3NaY0HohTRukG-mqnQxQUb2zSebEuxyI}`;
+const TELEGRAM_API = `https://api.telegram.org/bot${BOT_TOKEN}`;
 
 const TRANSMISSION = [
   "Hello.",
