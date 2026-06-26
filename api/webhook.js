@@ -6,7 +6,7 @@ const BOT_TOKEN = process.env.BOT_TOKEN;
 const TELEGRAM_API = `https://api.telegram.org/bot${BOT_TOKEN}`;
 
 const TRANSMISSION = [
-   "Hello.",
+  "Hello.",
   "",
   "We have been watching.",
   "You have been chosen.",
